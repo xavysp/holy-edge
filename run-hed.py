@@ -24,7 +24,7 @@ def get_session(gpu_fraction):
 def main(args):
 
     if not (args.run_train or args.run_test or args.download_data):
-        print 'Set atleast one of the options --train | --test | --download-data'
+        print ('Set at least one of the options --train | --test | --download-data')
         parser.print_help()
         return
 

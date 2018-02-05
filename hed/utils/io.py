@@ -35,19 +35,19 @@ class IO():
     def print_info(self, info_string, quite=False):
 
         info = '[{0}][INFO] {1}'.format(self.get_local_time(), info_string)
-        print colored(info, 'green')
+        print (colored(info, 'green'))
 
     def print_warning(self, warning_string):
 
         warning = '[{0}][WARNING] {1}'.format(self.get_local_time(), warning_string)
 
-        print colored(warning, 'blue')
+        print (colored(warning, 'blue'))
 
     def print_error(self, error_string):
 
         error = '[{0}][ERROR] {1}'.format(self.get_local_time(), error_string)
 
-        print colored(error, 'red')
+        print (colored(error, 'red'))
 
     def get_local_time(self):
 

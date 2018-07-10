@@ -12,7 +12,8 @@ def get_session(gpu_fraction):
 
     '''Assume that you have 6GB of GPU memory and want to allocate ~2GB'''
 
-    num_threads = int(os.environ.get('OMP_NUM_THREADS'))
+    # num_threads = int(os.environ.get('OMP_NUM_THREADS'))
+    num_threads = False
     gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=gpu_fraction)
 
     if num_threads:
@@ -53,8 +54,9 @@ def main(args):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Utility for Training/Testing DL models(Concepts/Captions) using theano/keras')
-    parser.add_argument('--config-file', dest='config_file', type=str, help='Experiment configuration file')
-    parser.add_argument('--train', dest='run_train', action='store_true', default=False, help='Launch training')
+    parser.add_argument('--config-file', dest='config_file', type=str, default='/home/xsoria/PycharmProject/edge-contour/holy-edge/hed/configs/hed.yaml',
+                        help='Experiment configuration file')
+    parser.add_argument('--train', dest='run_train', action='store_true', default=True, help='Launch training')
     parser.add_argument('--test', dest='run_test', action='store_true', default=False, help='Launch testing on a list of images')
     parser.add_argument('--download-data', dest='download_data', action='store_true', default=False, help='Download training data')
     parser.add_argument('--gpu-limit', dest='gpu_limit', type=float, default=1.0, help='Use fraction of GPU memory (Useful with TensorFlow backend)')

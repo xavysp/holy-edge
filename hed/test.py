@@ -2,10 +2,13 @@ import os
 import sys
 import argparse
 import yaml
-import urlparse
+# import urlparse the urlparse is renamed to urllib.parse
+import urllib.parse as urlparse
 import urllib
-import StringIO
-import cStringIO
+# import StringIO
+# import cStringIO
+from io import StringIO
+from io import BytesIO
 import numpy as np
 from PIL import Image
 import tensorflow as tf
@@ -96,17 +99,18 @@ class HEDTester():
             url_response = urllib.urlopen(test_image)
 
             if url_response.code == 404:
-                print self.io.print_error('[Testing] URL error code : {1} for {0}'.format(test_image, url_response.code))
+                print (self.io.print_error('[Testing] URL error code : {1} for {0}'.format(test_image, url_response.code)))
                 return None
 
             try:
 
-                image_buffer = cStringIO.StringIO(url_response.read())
+                # image_buffer = cStringIO.StringIO(url_response.read()) # x me
+                image_buffer = BytesIO.getbuffer(url_response.read())
                 image = self.capture_pixels(image_buffer)
 
             except Exception as err:
 
-                print self.io.print_error('[Testing] Error with URL {0} {1}'.format(test_image, err))
+                print (self.io.print_error('[Testing] Error with URL {0} {1}'.format(test_image, err)))
                 return None
 
         # read from disk
@@ -118,12 +122,13 @@ class HEDTester():
                 stream = fid.read()
                 fid.close()
 
-                image_buffer = cStringIO.StringIO(stream)
+                # image_buffer = cStringIO.StringIO(stream) # x me
+                image_buffer = BytesIO.getbuffer(stream)
                 image = self.capture_pixels(image_buffer)
 
             except Exception as err:
 
-                print self.io.print_error('[Testing] Error with image file {0} {1}'.format(test_image, err))
+                print (self.io.print_error('[Testing] Error with image file {0} {1}'.format(test_image, err)))
                 return None
 
         return image
